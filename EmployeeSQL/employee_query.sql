@@ -1,64 +1,7 @@
--- Drop table if exists
-
-DROP TABLE departments;
-DROP TABLE dept_emp;
-DROP TABLE dept_manager;
-DROP TABLE employees;
-DROP TABLE salaries;
-DROP TABLE titles;
-
--- Creating tables for Pewlett-Hackard employee database
-
-CREATE TABLE departments (
-     dept_no VARCHAR(4) NOT NULL
-     ,dept_name VARCHAR(40) NOT NULL
-);
-CREATE TABLE dept_emp (
-     emp_no INT NOT NULL
-     ,dept_no VARCHAR(4) 
-     ,from_date DATE 
-     ,to_date DATE 
-);
-CREATE TABLE dept_manager (
-     dept_no VARCHAR(4)
-     ,emp_no INT
-     ,from_date DATE 
-     ,to_date DATE 
-);
-CREATE TABLE employees (
-     emp_no INT PRIMARY KEY
-     ,birth_date DATE 
-     ,first_name VARCHAR
-     ,last_name VARCHAR
-     ,gender VARCHAR(1)
-     ,hire_date DATE 
-);
-CREATE TABLE salaries (
-     emp_no INT NOT NULL
-     ,salary INT
-     ,from_date DATE 
-     ,to_date DATE 
-);
-CREATE TABLE titles (
-     emp_no INT NOT NULL
-     ,title VARCHAR
-     ,from_date DATE 
-     ,to_date DATE 
-);
-
--- Import data from departments.csv, dept_emp.csv, dept_manager.csv, employees.csv, salaries.csv & titles.csv
--- View the table to ensure all data has been imported correctly
-
-SELECT * FROM departments;
-SELECT * FROM dept_emp;
-SELECT * FROM dept_manager;
-SELECT * FROM employees;
-SELECT * FROM salaries;
-SELECT * FROM titles;
-
--- Perform a LEFT JOIN to list the following details of each employee: 
+-- 1. List the following details of each employee: 
 -- employee number, last name, first name, gender, and salary
 
+-- Perform a LEFT JOIN of employees and salaries table
 CREATE VIEW detailed_salary_list AS
      SELECT employees.emp_no
           ,employees.last_name
@@ -72,7 +15,7 @@ CREATE VIEW detailed_salary_list AS
 
 SELECT * FROM detailed_salary_list
 
--- Query employees who were hired in 1986.
+-- 2. List employees who were hired in 1986.
 
 CREATE VIEW employees_eightysix AS
      SELECT first_name, last_name
@@ -81,8 +24,14 @@ CREATE VIEW employees_eightysix AS
 	 
 SELECT * FROM employees_eightysix
 
--- List of manager of each department with the following information: 
+-- 3. List of manager of each department with the following information: 
 -- department number, department name, employee number, last name, first name and start & end employment dates
 
 
+-- ALTER table to create new foreign key 
+ALTER TABLE dept_manager
+    ADD CONSTRAINT fk_orders_customers FOREIGN KEY (customer_id) REFERENCES customers (id);
+
+ALTER TABLE child_table 
+ADD CONSTRAINT constraint_name FOREIGN KEY (c1) REFERENCES parent_table (p1);
 
